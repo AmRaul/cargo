@@ -56,3 +56,13 @@ postgres_data/
 .cache/
 temp/
 tmp/
+
+# SSL Certificates
+certbot/
+
+# Backups
+backups/
+*.sql
+
+# Production environment
+.env.production
