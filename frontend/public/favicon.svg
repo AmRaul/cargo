@@ -1,0 +1,15 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Hexagon - Primary color -->
+  <path d="M100 10L173.2 55V145L100 190L26.8 145V55L100 10Z" stroke="#0284c7" stroke-width="8" fill="none"/>
+
+  <!-- Inner Hexagon - Accent color -->
+  <path d="M100 30L158.2 65V135L100 170L41.8 135V65L100 30Z" stroke="#d97706" stroke-width="6" fill="none"/>
+
+  <!-- Letter C -->
+  <path d="M120 70C110 65 98 65 88 70C78 75 72 85 72 100C72 115 78 125 88 130C98 135 110 135 120 130" stroke="#0284c7" stroke-width="10" stroke-linecap="round" fill="none"/>
+
+  <!-- Letter H -->
+  <line x1="110" y1="75" x2="110" y2="125" stroke="#d97706" stroke-width="8" stroke-linecap="round"/>
+  <line x1="128" y1="75" x2="128" y2="125" stroke="#d97706" stroke-width="8" stroke-linecap="round"/>
+  <line x1="110" y1="100" x2="128" y2="100" stroke="#d97706" stroke-width="8" stroke-linecap="round"/>
+</svg>

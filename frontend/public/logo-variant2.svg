@@ -1,0 +1,16 @@
+<svg width="300" height="100" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="40" fill="#2563EB"/>
+
+  <!-- C Letter in circle -->
+  <path d="M65 30C58 25 48 25 41 30C34 35 30 42 30 50C30 58 34 65 41 70C48 75 58 75 65 70" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+
+  <!-- Cargo text -->
+  <text x="100" y="55" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#1E3A8A">Cargo</text>
+
+  <!-- Hub text -->
+  <text x="200" y="55" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#F97316">Hub</text>
+
+  <!-- Underline accent -->
+  <rect x="200" y="60" width="80" height="4" fill="#2563EB" rx="2"/>
+</svg>

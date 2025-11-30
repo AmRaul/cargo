@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CargoHub - Превью логотипов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 60px;
+            font-size: 1.2rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+        .card h2 {
+            color: #1E3A8A;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        .card p {
+            color: #64748B;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .logo-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .sizes {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .size-demo {
+            background: #F3F4F6;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+        .size-demo img {
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .size-demo span {
+            font-size: 0.75rem;
+            color: #64748B;
+            display: block;
+        }
+        .dark-bg {
+            background: #1F2937;
+        }
+        .badge {
+            display: inline-block;
+            background: #10B981;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .pros {
+            background: #F0FDF4;
+            border-left: 4px solid #10B981;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .pros h3 {
+            color: #059669;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .pros ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .pros li {
+            color: #065F46;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .pros li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 CargoHub</h1>
+        <p class="subtitle">Выберите лучший логотип для вашей компании</p>
+
+        <div class="grid">
+            <!-- Variant 1 -->
+            <div class="card">
+                <h2>Вариант 1: Геометрический</h2>
+                <p>Двойной шестиугольник с буквами CH</p>
+                <div class="logo-container">
+                    <img src="logo-variant1.svg" alt="Variant 1" style="width: 180px;">
+                </div>
+                <div class="sizes">
+                    <div class="size-demo">
+                        <img src="logo-variant1.svg" width="50" alt="Small">
+                        <span>50px</span>
+                    </div>
+                    <div class="size-demo dark-bg">
+                        <img src="logo-variant1.svg" width="50" alt="Dark">
+                        <span style="color: white;">Темный фон</span>
+                    </div>
+                </div>
+                <div class="pros">
+                    <h3>Преимущества:</h3>
+                    <ul>
+                        <li>Символ Hub (шестиугольник)</li>
+                        <li>Современный стиль</li>
+                        <li>Хорошо масштабируется</li>
+                        <li>Запоминающийся</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Variant 2 -->
+            <div class="card">
+                <h2>Вариант 2: Типографика</h2>
+                <p>Текстовый логотип с акцентом</p>
+                <div class="logo-container">
+                    <img src="logo-variant2.svg" alt="Variant 2" style="width: 280px;">
+                </div>
+                <div class="sizes">
+                    <div class="size-demo">
+                        <img src="logo-variant2.svg" width="120" alt="Small">
+                        <span>120px</span>
+                    </div>
+                    <div class="size-demo dark-bg">
+                        <img src="logo-variant2.svg" width="120" alt="Dark">
+                        <span style="color: white;">Темный фон</span>
+                    </div>
+                </div>
+                <div class="pros">
+                    <h3>Преимущества:</h3>
+                    <ul>
+                        <li>Читаемое название</li>
+                        <li>Профессиональный вид</li>
+                        <li>Отлично для header</li>
+                        <li>Простой и понятный</li>
+                    </ul>
+                </div>
+                <span class="badge">Для header</span>
+            </div>
+
+            <!-- Variant 3 -->
+            <div class="card">
+                <h2>Вариант 3: Маршруты</h2>
+                <p>Стрелки сходящиеся в центре</p>
+                <div class="logo-container">
+                    <img src="logo-variant3.svg" alt="Variant 3" style="width: 180px;">
+                </div>
+                <div class="sizes">
+                    <div class="size-demo">
+                        <img src="logo-variant3.svg" width="50" alt="Small">
+                        <span>50px</span>
+                    </div>
+                    <div class="size-demo dark-bg">
+                        <img src="logo-variant3.svg" width="50" alt="Dark">
+                        <span style="color: white;">Темный фон</span>
+                    </div>
+                </div>
+                <div class="pros">
+                    <h3>Преимущества:</h3>
+                    <ul>
+                        <li>Показывает логистику</li>
+                        <li>Концепция Hub</li>
+                        <li>Динамичный</li>
+                        <li>Уникальный дизайн</li>
+                    </ul>
+                </div>
+                <span class="badge">Динамичный</span>
+            </div>
+
+            <!-- Variant 4 -->
+            <div class="card">
+                <h2>Вариант 4: Щит</h2>
+                <p>Badge с градиентом и инициалами</p>
+                <div class="logo-container">
+                    <img src="logo-variant4.svg" alt="Variant 4" style="width: 160px;">
+                </div>
+                <div class="sizes">
+                    <div class="size-demo">
+                        <img src="logo-variant4.svg" width="50" alt="Small">
+                        <span>50px</span>
+                    </div>
+                    <div class="size-demo dark-bg">
+                        <img src="logo-variant4.svg" width="50" alt="Dark">
+                        <span style="color: white;">Темный фон</span>
+                    </div>
+                </div>
+                <div class="pros">
+                    <h3>Преимущества:</h3>
+                    <ul>
+                        <li>Символ надежности</li>
+                        <li>Защита грузов</li>
+                        <li>Премиум вид</li>
+                        <li>Красивые градиенты</li>
+                    </ul>
+                </div>
+                <span class="badge">Premium</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CargoHub - Гайд по использованию логотипов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0ea5e9 0%, #075985 100%);
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 50px;
+            font-size: 1.2rem;
+        }
+        .usage-grid {
+            display: grid;
+            gap: 30px;
+        }
+        .usage-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .usage-card h2 {
+            color: #075985;
+            margin-bottom: 15px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .badge {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .demo-section {
+            background: #F9FAFB;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        .demo-section h3 {
+            color: #1F2937;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .preview {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid #E5E7EB;
+        }
+        .dark-preview {
+            background: #1F2937;
+        }
+        .file-info {
+            background: #EFF6FF;
+            border-left: 4px solid #0284c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .file-info code {
+            background: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #d97706;
+        }
+        .check-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+        .check-list li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #F0FDF4;
+            border-radius: 8px;
+            color: #065F46;
+            padding-left: 35px;
+            position: relative;
+        }
+        .check-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 12px;
+            color: #10B981;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .mock-header {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: white;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .mock-footer {
+            background: #1F2937;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        .footer-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 CargoHub Логотипы</h1>
+        <p class="subtitle">Гайд по использованию всех вариантов логотипов</p>
+
+        <div class="usage-grid">
+            <!-- Variant 1: Favicon -->
+            <div class="usage-card">
+                <h2>
+                    <span>📌 Вариант 1: Favicon</span>
+                    <span class="badge">Геометрический</span>
+                </h2>
+
+                <div class="demo-section">
+                    <h3>Где используется:</h3>
+                    <ul class="check-list">
+                        <li>Favicon (иконка в табе браузера)</li>
+                        <li>Apple Touch Icon (мобильные устройства)</li>
+                        <li>Иконка приложения</li>
+                    </ul>
+
+                    <div class="preview" style="text-align: center; padding: 40px;">
+                        <img src="favicon.svg" style="width: 100px; height: 100px;" alt="Favicon">
+                        <p style="margin-top: 15px; color: #64748B; font-size: 0.9rem;">
+                            Двойной шестиугольник с буквами C+H
+                        </p>
+                    </div>
+                </div>
+
+                <div class="file-info">
+                    <strong>📁 Файлы:</strong><br>
+                    <code>/public/favicon.svg</code><br>
+                    <code>/public/favicon-32x32.svg</code><br>
+                    <code>/public/logo-v1-updated.svg</code>
+                </div>
+            </div>
+
+            <!-- Variant 2: Header -->
+            <div class="usage-card">
+                <h2>
+                    <span>🎯 Вариант 2: Header</span>
+                    <span class="badge">Типографика</span>
+                </h2>
+
+                <div class="demo-section">
+                    <h3>Где используется:</h3>
+                    <ul class="check-list">
+                        <li>Верхний header сайта (fixed)</li>
+                        <li>Основной логотип на всех страницах</li>
+                    </ul>
+
+                    <div class="preview">
+                        <div class="mock-header">
+                            <img src="logo-v2-updated.svg" style="width: 220px;" alt="Header Logo">
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 15px; color: #64748B; font-size: 0.9rem;">
+                        ✨ Полное название "CargoHub" с круглой иконкой - идеально читается
+                    </p>
+                </div>
+
+                <div class="file-info">
+                    <strong>📁 Файл:</strong><br>
+                    <code>/public/logo-v2-updated.svg</code><br><br>
+                    <strong>📝 Компонент:</strong><br>
+                    <code>/components/Header.tsx</code>
+                </div>
+            </div>
+
+            <!-- Variant 3: Footer & Features -->
+            <div class="usage-card">
+                <h2>
+                    <span>🚀 Вариант 3: Маршруты</span>
+                    <span class="badge">Концептуальный</span>
+                </h2>
+
+                <div class="demo-section">
+                    <h3>Где используется:</h3>
+                    <ul class="check-list">
+                        <li>Footer (подвал сайта)</li>
+                        <li>Секция "Наши направления"</li>
+                        <li>Декоративный элемент</li>
+                    </ul>
+
+                    <div class="preview dark-preview">
+                        <div class="mock-footer">
+                            <div class="footer-content">
+                                <img src="logo-v3-updated.svg" style="width: 60px;" alt="Footer Logo">
+                                <h3 style="color: #fbbf24; font-size: 1.5rem; font-weight: bold;">CargoHub</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="preview" style="text-align: center; padding: 30px; margin-top: 15px;">
+                        <img src="logo-v3-updated.svg" style="width: 120px;" alt="Features Logo">
+                        <p style="margin-top: 10px; color: #64748B; font-size: 0.9rem;">
+                            Над секцией "Наши направления"
+                        </p>
+                    </div>
+
+                    <p style="margin-top: 15px; color: #64748B; font-size: 0.9rem;">
+                        💡 <strong>Концепция:</strong> Стрелки из разных точек (городов) сходятся в центральный Hub
+                    </p>
+                </div>
+
+                <div class="file-info">
+                    <strong>📁 Файл:</strong><br>
+                    <code>/public/logo-v3-updated.svg</code><br><br>
+                    <strong>📝 Компоненты:</strong><br>
+                    <code>/components/Footer.tsx</code><br>
+                    <code>/components/Features.tsx</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="usage-card" style="margin-top: 30px; background: linear-gradient(135deg, #EFF6FF, #DBEAFE);">
+            <h2 style="color: #075985;">📋 Итого</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 10px;">
+                    <img src="favicon.svg" style="width: 60px; margin-bottom: 10px;" alt="V1">
+                    <h3 style="color: #075985; margin-bottom: 5px;">Вариант 1</h3>
+                    <p style="color: #64748B; font-size: 0.85rem;">Favicon & Icons</p>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 10px;">
+                    <img src="logo-v2-updated.svg" style="width: 140px; margin-bottom: 10px;" alt="V2">
+                    <h3 style="color: #075985; margin-bottom: 5px;">Вариант 2</h3>
+                    <p style="color: #64748B; font-size: 0.85rem;">Header Logo</p>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 10px;">
+                    <img src="logo-v3-updated.svg" style="width: 80px; margin-bottom: 10px;" alt="V3">
+                    <h3 style="color: #075985; margin-bottom: 5px;">Вариант 3</h3>
+                    <p style="color: #64748B; font-size: 0.85rem;">Footer & Features</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

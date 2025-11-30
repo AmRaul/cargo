@@ -1,0 +1,25 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Center circle (hub) -->
+  <circle cx="100" cy="100" r="20" fill="#075985"/>
+  <circle cx="100" cy="100" r="15" fill="#d97706"/>
+
+  <!-- Arrow 1 (top right) -->
+  <path d="M120 80L160 40" stroke="#0284c7" stroke-width="8" stroke-linecap="round"/>
+  <path d="M160 40L150 45L155 55Z" fill="#0284c7"/>
+  <circle cx="165" cy="35" r="8" fill="#0284c7"/>
+
+  <!-- Arrow 2 (bottom right) -->
+  <path d="M120 120L160 160" stroke="#d97706" stroke-width="8" stroke-linecap="round"/>
+  <path d="M160 160L155 150L145 155Z" fill="#d97706"/>
+  <circle cx="165" cy="165" r="8" fill="#d97706"/>
+
+  <!-- Arrow 3 (left) -->
+  <path d="M80 100L40 100" stroke="#0284c7" stroke-width="8" stroke-linecap="round"/>
+  <path d="M40 100L50 95L50 105Z" fill="#0284c7"/>
+  <circle cx="35" cy="100" r="8" fill="#0284c7"/>
+
+  <!-- Connection lines (lighter) -->
+  <line x1="115" y1="85" x2="145" y2="55" stroke="#0ea5e9" stroke-width="3" opacity="0.3"/>
+  <line x1="115" y1="115" x2="145" y2="145" stroke="#f59e0b" stroke-width="3" opacity="0.3"/>
+  <line x1="85" y1="100" x2="55" y2="100" stroke="#0ea5e9" stroke-width="3" opacity="0.3"/>
+</svg>
