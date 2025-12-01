@@ -2,35 +2,49 @@
 
 ## 🚀 Краткая инструкция
 
-### На сервере (5.35.80.213)
+### Вариант 1: Автоматический деплой через GitHub (Рекомендуется)
+
+**См. подробную инструкцию**: [GITHUB-SECRETS-SETUP.md](GITHUB-SECRETS-SETUP.md)
+
+**Кратко:**
+1. Сгенерируйте пароли локально
+2. Добавьте 6 секретов в GitHub
+3. Сделайте `git push` - деплой произойдет автоматически!
+
+---
+
+### Вариант 2: Ручной деплой на сервере
 
 ```bash
 # 1. Подключение
 ssh root@5.35.80.213
 
-# 2. Установка Docker и Git (если еще не установлены)
-curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+# 2. Установка Docker и Git
+curl -fsSL https://get.docker.com | sh
 apt install docker-compose git -y
 
 # 3. Клонирование проекта
-mkdir -p /opt/cargo && cd /opt/cargo
-git clone https://github.com/AmRaul/cargo.git .
+cd /opt
+git clone https://github.com/AmRaul/cargo.git
+cd cargo
 
 # 4. Настройка переменных окружения
 cp .env.production.example .env
 nano .env
 # Измените: POSTGRES_PASSWORD, SECRET_KEY, ADMIN_PASSWORD
+# Используйте: openssl rand -hex 32 и openssl rand -base64 24
 
 # 5. Настройка SSL
-nano init-ssl.sh
-# Измените EMAIL на ваш email
+nano init-ssl.sh  # Измените EMAIL
+chmod +x init-ssl.sh
 ./init-ssl.sh
 
 # 6. Запуск
+chmod +x deploy.sh
 ./deploy.sh
 ```
 
-### Настройка GitHub Actions (автодеплой)
+### Настройка GitHub Actions (для автодеплоя)
 
 ```bash
 # На локальном компьютере или сервере
