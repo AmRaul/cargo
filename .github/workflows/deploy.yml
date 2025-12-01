@@ -64,6 +64,12 @@ jobs:
             # Make scripts executable
             chmod +x deploy.sh init-ssl.sh generate-secrets.sh 2>/dev/null || true
 
+            # Check for port conflicts and use appropriate docker-compose file
+            if docker ps --filter "publish=80" --format "{{.ID}}" | grep -q .; then
+              echo "⚠️ Port 80 is in use, using no-nginx configuration"
+              cp docker-compose.prod-no-nginx.yml docker-compose.prod.yml
+            fi
+
             # Run deployment
             ./deploy.sh
 

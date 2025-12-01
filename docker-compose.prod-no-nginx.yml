@@ -1,0 +1,72 @@
+version: '3.8'
+
+# Alternative configuration WITHOUT nginx
+# Use this if you already have nginx running on the server
+# You'll need to configure your existing nginx to proxy to these services
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: cargo_db_prod
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    networks:
+      - cargo_network_prod
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: cargo_backend_prod
+    restart: unless-stopped
+    ports:
+      - "8001:8000"  # Exposed on port 8001 to avoid conflicts
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ENVIRONMENT: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - cargo_network_prod
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    container_name: cargo_frontend_prod
+    restart: unless-stopped
+    ports:
+      - "3001:3000"  # Exposed on port 3001 to avoid conflicts
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    depends_on:
+      - backend
+    networks:
+      - cargo_network_prod
+
+volumes:
+  postgres_data_prod:
+
+networks:
+  cargo_network_prod:
+    driver: bridge

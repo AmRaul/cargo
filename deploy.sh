@@ -20,11 +20,36 @@ fi
 # Load environment variables
 source .env
 
-echo -e "${YELLOW}📥 Pulling latest changes...${NC}"
-git pull origin main
+# Check if ports 80 and 443 are available
+echo -e "${YELLOW}🔍 Checking ports availability...${NC}"
+if lsof -Pi :80 -sTCP:LISTEN -t >/dev/null 2>&1 ; then
+    echo -e "${YELLOW}⚠️  Port 80 is already in use${NC}"
+    echo "Checking what's using it:"
+    lsof -Pi :80 -sTCP:LISTEN || docker ps --filter "publish=80"
 
-echo -e "${YELLOW}🛑 Stopping existing containers...${NC}"
+    # Try to stop existing nginx container
+    if docker ps -q -f name=nginx >/dev/null 2>&1; then
+        echo -e "${YELLOW}🛑 Stopping existing nginx container...${NC}"
+        docker stop nginx 2>/dev/null || true
+        docker rm nginx 2>/dev/null || true
+    fi
+fi
+
+echo -e "${YELLOW}📥 Pulling latest changes...${NC}"
+git pull origin main 2>/dev/null || echo "Skipping git pull (running from GitHub Actions)"
+
+echo -e "${YELLOW}🛑 Stopping existing cargo containers...${NC}"
 docker-compose -f docker-compose.prod.yml down
+
+# Force stop any containers using ports 80/443
+echo -e "${YELLOW}🧹 Cleaning up port conflicts...${NC}"
+for port in 80 443; do
+    container_id=$(docker ps -q --filter "publish=$port" 2>/dev/null)
+    if [ ! -z "$container_id" ]; then
+        echo -e "${YELLOW}⚠️  Stopping container using port $port: $container_id${NC}"
+        docker stop $container_id 2>/dev/null || true
+    fi
+done
 
 echo -e "${YELLOW}🗑️  Cleaning up old images...${NC}"
 docker system prune -f
