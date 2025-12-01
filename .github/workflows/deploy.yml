@@ -44,9 +44,27 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
+            # Clone repo if not exists
+            if [ ! -d "/opt/cargo" ]; then
+              echo "📦 Cloning repository..."
+              mkdir -p /opt
+              cd /opt
+              git clone https://github.com/AmRaul/cargo.git
+            fi
+
             cd /opt/cargo
-            git pull origin main
-            chmod +x deploy.sh
+
+            # Ensure git remote is set to HTTPS
+            git remote set-url origin https://github.com/AmRaul/cargo.git
+
+            # Fetch and reset to latest
+            git fetch origin main
+            git reset --hard origin/main
+
+            # Make scripts executable
+            chmod +x deploy.sh init-ssl.sh generate-secrets.sh 2>/dev/null || true
+
+            # Run deployment
             ./deploy.sh
 
       - name: Notify deployment status
