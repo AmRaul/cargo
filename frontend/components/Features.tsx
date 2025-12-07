@@ -41,15 +41,6 @@ const features = [
   {
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-      </svg>
-    ),
-    title: 'Отслеживание груза',
-    description: 'Онлайн мониторинг местоположения вашего груза в реальном времени'
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
       </svg>
     ),
@@ -138,9 +129,6 @@ export default function Features() {
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <span className="text-accent-300">✓</span> Авиа доставка 5-7 дней
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-accent-300">✓</span> Морская доставка 25-35 дней
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="text-accent-300">✓</span> Любые типы грузов

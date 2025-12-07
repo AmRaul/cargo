@@ -80,12 +80,17 @@ else
     exit 1
 fi
 
-if [ "$(docker ps -q -f name=cargo_nginx)" ]; then
-    echo -e "${GREEN}✅ Nginx is running${NC}"
+# Check nginx only if it's defined in docker-compose
+if docker-compose -f docker-compose.prod.yml config --services | grep -q "^nginx$"; then
+    if [ "$(docker ps -q -f name=cargo_nginx)" ]; then
+        echo -e "${GREEN}✅ Nginx is running${NC}"
+    else
+        echo -e "${RED}❌ Nginx failed to start${NC}"
+        docker-compose -f docker-compose.prod.yml logs nginx
+        exit 1
+    fi
 else
-    echo -e "${RED}❌ Nginx failed to start${NC}"
-    docker-compose -f docker-compose.prod.yml logs nginx
-    exit 1
+    echo -e "${YELLOW}ℹ️  Nginx not included (using external nginx)${NC}"
 fi
 
 echo -e "${GREEN}✅ Deployment completed successfully!${NC}"

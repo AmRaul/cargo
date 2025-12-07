@@ -6,7 +6,6 @@ import Stats from '@/components/Stats'
 import Features from '@/components/Features'
 import HowItWorks from '@/components/HowItWorks'
 import ShippingTypes from '@/components/ShippingTypes'
-import Testimonials from '@/components/Testimonials'
 import CTA from '@/components/CTA'
 import FAQ from '@/components/FAQ'
 import OrderForm from '@/components/OrderForm'
@@ -35,7 +34,6 @@ export default function Home() {
         <HowItWorks />
         <ShippingTypes />
         <CTA onOrderClick={() => setShowForm(true)} />
-        <Testimonials />
         <FAQ />
         <OrderForm isOpen={showForm} onClose={() => setShowForm(false)} />
         <Footer />

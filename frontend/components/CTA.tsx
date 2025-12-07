@@ -28,7 +28,7 @@ export default function CTA({ onOrderClick }: CTAProps) {
             Готовы отправить груз?
           </h2>
           <p className="text-xl md:text-2xl text-primary-100 mb-12 max-w-3xl mx-auto">
-            Получите бесплатный расчет стоимости за 1 час. Никаких скрытых платежей.
+            Получите бесплатный расчет стоимости. Никаких скрытых платежей.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -41,15 +41,6 @@ export default function CTA({ onOrderClick }: CTAProps) {
               <span>📦</span>
               Рассчитать стоимость
             </motion.button>
-            <motion.a
-              href="tel:+79991234567"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-10 py-5 rounded-xl text-lg font-bold border-2 border-white/30 transition-all inline-flex items-center gap-3"
-            >
-              <span>📞</span>
-              +7 (999) 123-45-67
-            </motion.a>
           </div>
 
           {/* Benefits */}

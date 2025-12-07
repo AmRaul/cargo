@@ -64,10 +64,14 @@ jobs:
             # Make scripts executable
             chmod +x deploy.sh init-ssl.sh generate-secrets.sh 2>/dev/null || true
 
-            # Check for port conflicts and use appropriate docker-compose file
-            if docker ps --filter "publish=80" --format "{{.ID}}" | grep -q .; then
+            # Check if nginx is already running on the host (not in Docker)
+            # If yes, use no-nginx configuration
+            if lsof -i :80 -sTCP:LISTEN -t >/dev/null 2>&1 || docker ps --filter "publish=80" --format "{{.ID}}" | grep -q .; then
               echo "⚠️ Port 80 is in use, using no-nginx configuration"
+              echo "Cargo will run on ports 8001 (backend) and 3001 (frontend)"
               cp docker-compose.prod-no-nginx.yml docker-compose.prod.yml
+            else
+              echo "✅ Port 80 is free, using full configuration with nginx"
             fi
 
             # Run deployment
