@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 from sqladmin import Admin
 from sqladmin.authentication import AuthenticationBackend
 from starlette.requests import Request
@@ -43,6 +44,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Session middleware for SQLAdmin authentication
+app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
+
 
 # SQLAdmin Authentication Backend
 class AdminAuth(AuthenticationBackend):
@@ -70,7 +74,7 @@ authentication_backend = AdminAuth(secret_key=settings.SECRET_KEY)
 admin = Admin(
     app,
     engine,
-    title="Cargo Logistics Admin",
+    title="Панель управления грузоперевозками",
     authentication_backend=authentication_backend
 )
 

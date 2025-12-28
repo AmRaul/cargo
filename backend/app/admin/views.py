@@ -7,8 +7,8 @@ from app.models.expense import Expense
 
 
 class SupplierAdmin(ModelView, model=Supplier):
-    name = "Supplier"
-    name_plural = "Suppliers"
+    name = "Поставщик"
+    name_plural = "Поставщики"
     icon = "fa-solid fa-warehouse"
 
     column_list = [
@@ -34,10 +34,22 @@ class SupplierAdmin(ModelView, model=Supplier):
         Supplier.notes
     ]
 
+    column_labels = {
+        "id": "ID",
+        "name": "Название",
+        "country": "Страна",
+        "city": "Город",
+        "contact_person": "Контактное лицо",
+        "contact_info": "Контактная информация",
+        "notes": "Примечания",
+        "created_at": "Дата создания",
+        "updated_at": "Дата обновления"
+    }
+
 
 class ClientAdmin(ModelView, model=Client):
-    name = "Client"
-    name_plural = "Clients"
+    name = "Клиент"
+    name_plural = "Клиенты"
     icon = "fa-solid fa-users"
 
     column_list = [
@@ -61,10 +73,21 @@ class ClientAdmin(ModelView, model=Client):
         Client.notes
     ]
 
+    column_labels = {
+        "id": "ID",
+        "name": "Имя",
+        "company_name": "Название компании",
+        "contact_person": "Контактное лицо",
+        "contact_info": "Контактная информация",
+        "notes": "Примечания",
+        "created_at": "Дата создания",
+        "updated_at": "Дата обновления"
+    }
+
 
 class RateAdmin(ModelView, model=Rate):
-    name = "Rate"
-    name_plural = "Rates"
+    name = "Тариф"
+    name_plural = "Тарифы"
     icon = "fa-solid fa-dollar-sign"
 
     column_list = [
@@ -97,10 +120,25 @@ class RateAdmin(ModelView, model=Rate):
         Rate.valid_to
     ]
 
+    column_labels = {
+        "id": "ID",
+        "cargo_type": "Тип груза",
+        "supplier_id": "Поставщик",
+        "client_id": "Клиент",
+        "buy_rate": "Ставка закупки",
+        "sell_rate": "Ставка продажи",
+        "currency": "Валюта",
+        "unit": "Единица измерения",
+        "valid_from": "Действует с",
+        "valid_to": "Действует до",
+        "created_at": "Дата создания",
+        "updated_at": "Дата обновления"
+    }
+
 
 class ShipmentAdmin(ModelView, model=Shipment):
-    name = "Shipment"
-    name_plural = "Shipments"
+    name = "Поставка"
+    name_plural = "Поставки"
     icon = "fa-solid fa-truck"
 
     column_list = [
@@ -141,13 +179,36 @@ class ShipmentAdmin(ModelView, model=Shipment):
         Shipment.status
     ]
 
+    column_labels = {
+        "id": "ID",
+        "shipment_code": "Код поставки",
+        "supplier_id": "Поставщик",
+        "client_id": "Клиент",
+        "rate_id": "Тариф",
+        "cargo_type": "Тип груза",
+        "quantity": "Количество",
+        "status": "Статус",
+        "departure_date": "Дата отправки",
+        "arrival_date": "Дата прибытия",
+        "created_at": "Дата создания",
+        "updated_at": "Дата обновления"
+    }
+
+    column_type_formatters = {
+        "status": lambda m, a: {
+            "planned": "Запланирована",
+            "in_transit": "В пути",
+            "delivered": "Доставлена"
+        }.get(m.status.value, m.status.value) if hasattr(m, 'status') and m.status else ""
+    }
+
     # TODO: Add computed columns for finance (revenue, cost, profit, margin)
     # This requires custom column formatters
 
 
 class ExpenseAdmin(ModelView, model=Expense):
-    name = "Expense"
-    name_plural = "Expenses"
+    name = "Расход"
+    name_plural = "Расходы"
     icon = "fa-solid fa-money-bill"
 
     column_list = [
@@ -180,3 +241,23 @@ class ExpenseAdmin(ModelView, model=Expense):
         Expense.comment,
         Expense.expense_date
     ]
+
+    column_labels = {
+        "id": "ID",
+        "shipment_id": "Поставка",
+        "expense_type": "Тип расхода",
+        "amount": "Сумма",
+        "currency": "Валюта",
+        "comment": "Комментарий",
+        "expense_date": "Дата расхода",
+        "created_at": "Дата создания"
+    }
+
+    column_type_formatters = {
+        "expense_type": lambda m, a: {
+            "customs": "Таможня",
+            "delivery": "Доставка",
+            "agent_fee": "Агентский сбор",
+            "warehouse": "Склад"
+        }.get(m.expense_type.value, m.expense_type.value) if hasattr(m, 'expense_type') and m.expense_type else ""
+    }
