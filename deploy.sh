@@ -55,7 +55,7 @@ echo -e "${YELLOW}🗑️  Cleaning up old images...${NC}"
 docker system prune -f
 
 echo -e "${YELLOW}🔨 Building containers...${NC}"
-docker-compose -f docker-compose.prod.yml build --no-cache
+docker-compose -f docker-compose.prod.yml build
 
 echo -e "${YELLOW}🚀 Starting containers...${NC}"
 docker-compose -f docker-compose.prod.yml up -d

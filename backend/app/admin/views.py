@@ -53,15 +53,15 @@ class ClientAdmin(ModelView, model=Client):
     icon = "fa-solid fa-users"
 
     column_list = [
-        Client.id,
+        Client.client_number,
         Client.name,
         Client.company_name,
         Client.contact_person,
         Client.created_at
     ]
 
-    column_searchable_list = [Client.name, Client.company_name]
-    column_sortable_list = [Client.name, Client.company_name, Client.created_at]
+    column_searchable_list = [Client.client_number, Client.name, Client.company_name]
+    column_sortable_list = [Client.client_number, Client.name, Client.company_name, Client.created_at]
 
     column_details_exclude_list = [Client.id]
 
@@ -75,6 +75,7 @@ class ClientAdmin(ModelView, model=Client):
 
     column_labels = {
         "id": "ID",
+        "client_number": "Номер клиента",
         "name": "Имя",
         "company_name": "Название компании",
         "contact_person": "Контактное лицо",

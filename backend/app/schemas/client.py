@@ -26,6 +26,7 @@ class ClientUpdate(BaseModel):
 
 class ClientResponse(ClientBase):
     id: UUID
+    client_number: str
     created_at: datetime
     updated_at: Optional[datetime]
 
