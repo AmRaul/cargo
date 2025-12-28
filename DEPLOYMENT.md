@@ -49,6 +49,10 @@ git clone https://github.com/AmRaul/cargo.git .
 
 ## 4. Настройка переменных окружения
 
+⚠️ **ВАЖНО**: Если используется GitHub Actions (рекомендуется), `.env` создаётся автоматически из GitHub Secrets. Пропустите этот шаг.
+
+Для ручного деплоя:
+
 ```bash
 # Копирование шаблона
 cp .env.production.example .env
@@ -57,25 +61,36 @@ cp .env.production.example .env
 nano .env
 ```
 
-**Важно!** Измените следующие значения:
-- `POSTGRES_PASSWORD` - надежный пароль для базы данных
-- `SECRET_KEY` - случайный ключ (можно сгенерировать: `openssl rand -hex 32`)
-- `ADMIN_PASSWORD` - пароль для админ-панели
+**Важно!** Измените ВСЕ `CHANGE_ME` значения:
 
-Пример `.env`:
+```bash
+# Генерация паролей
+python -c "import secrets; print('POSTGRES_PASSWORD:', secrets.token_urlsafe(20))"
+python -c "import secrets; print('SECRET_KEY:', secrets.token_urlsafe(32))"
+```
+
+Пример заполненного `.env`:
 ```env
+# Database
 POSTGRES_USER=cargo_user
-POSTGRES_PASSWORD=MyStr0ngP@ssw0rd123!
+POSTGRES_PASSWORD=xJh8kP2mN9vL4qR7wE3tY6u  # Ваш сгенерированный пароль
 POSTGRES_DB=cargo_db
 
-DATABASE_URL=postgresql://cargo_user:MyStr0ngP@ssw0rd123!@postgres:5432/cargo_db
-SECRET_KEY=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6
-ADMIN_PASSWORD=Admin123!Secure
+# ВАЖНО: обновите пароль в DATABASE_URL тоже!
+DATABASE_URL=postgresql://cargo_user:xJh8kP2mN9vL4qR7wE3tY6u@postgres:5432/cargo_db
 
+# Security
+SECRET_KEY=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6  # Ваш сгенерированный ключ
+ADMIN_PASSWORD=Admin123!Secure_20_Chars_Min  # Сложный пароль 20+ символов
+
+# Frontend
 NEXT_PUBLIC_API_URL=https://hub-cargo.ru/api
 
+# Environment
 ENVIRONMENT=production
 ```
+
+⚠️ **НЕ коммитьте `.env` файл в git!** Он уже добавлен в `.gitignore`.
 
 ## 5. Настройка SSL сертификатов
 
@@ -144,9 +159,14 @@ cat ~/.ssh/github_cargo
 
 Перейдите в Settings → Secrets and variables → Actions вашего репозитория:
 
+**Обязательные секреты:**
+
 1. **SERVER_HOST**: `5.35.80.213`
 2. **SERVER_USER**: `root`
 3. **SSH_PRIVATE_KEY**: содержимое файла `~/.ssh/github_cargo` (приватный ключ)
+4. **POSTGRES_PASSWORD**: Сгенерируйте `python -c "import secrets; print(secrets.token_urlsafe(20))"`
+5. **SECRET_KEY**: Сгенерируйте `python -c "import secrets; print(secrets.token_urlsafe(32))"`
+6. **ADMIN_PASSWORD**: Сложный пароль для админки (20+ символов)
 
 ### Тестирование автодеплоя
 

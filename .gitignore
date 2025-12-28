@@ -52,6 +52,9 @@ dist
 *.sqlite3
 postgres_data/
 
+# Alembic
+alembic/versions/__pycache__/
+
 # Misc
 .cache/
 temp/

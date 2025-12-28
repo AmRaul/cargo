@@ -1,212 +1,293 @@
-# Cargo Express - Платформа для грузоперевозок
+# 🚚 Cargo Logistics Accounting System
 
-Лендинг для приема заявок на грузоперевозки из ОАЭ и Турции в РФ.
+Система учёта грузоперевозок с автоматическим расчётом финансовых показателей (revenue, cost, profit, margin).
 
-## Стек технологий
+## 🎯 Возможности
 
-### Frontend
-- **Next.js 14** - React фреймворк
-- **TypeScript** - типизация
-- **Tailwind CSS** - стили
-- **Framer Motion** - анимации
-- **React Hook Form** - формы
-- **Axios** - HTTP клиент
+- ✅ **Учёт поставщиков и клиентов** - полная база контрагентов
+- ✅ **Гибкие ставки** - закупка/продажа по разным тарифам
+- ✅ **Управление поставками** - отслеживание статусов фур
+- ✅ **Учёт расходов** - таможня, доставка, склад, агентские
+- ✅ **Автоматические финансы** - revenue, cost, profit, margin
+- ✅ **Отчётность** - по периодам, клиентам, поставщикам
+- ✅ **Admin Panel** - удобный веб-интерфейс
+- ✅ **REST API** - полный CRUD для интеграций
 
-### Backend
-- **FastAPI** - Python веб-фреймворк
-- **SQLAlchemy** - ORM
-- **PostgreSQL** - база данных
-- **Pydantic** - валидация данных
-- **FastAPI Admin** - админ панель
+## 🚀 Быстрый старт (Docker)
 
-### Инфраструктура
-- **Docker & Docker Compose** - контейнеризация
-- **Nginx** (опционально) - reverse proxy
+### Вариант 1: Автоматический (рекомендуется)
 
-## Быстрый старт
-
-### Предварительные требования
-- Docker и Docker Compose
-- Git
-
-### Установка и запуск
-
-1. **Клонируйте репозиторий**
 ```bash
-git clone <repository-url>
-cd cargo
+./START.sh
 ```
 
-2. **Создайте .env файл для backend**
+Скрипт автоматически:
+- ✅ Создаст `.env` из `.env.example` если его нет
+- ✅ Запустит контейнеры
+- ✅ Применит миграции БД
+- ✅ Создаст тестовые данные
+
+### Вариант 2: Ручной
+
 ```bash
-# backend/.env
-DATABASE_URL=postgresql://cargo_user:cargo_pass@postgres:5432/cargo_db
-SECRET_KEY=your-secret-key-change-in-production
+# 1. Создать .env файл
+cp .env.example .env
+
+# 2. (Опционально) Изменить пароли в .env
+nano .env  # или любой другой редактор
+
+# 3. Запустить всё
+docker-compose up --build -d
+
+# 4. Создать тестовые данные
+docker-compose exec backend python create_initial_data.py
 ```
 
-3. **Запустите все сервисы**
+### 🔐 Доступ к админке
+
+- **URL**: http://localhost:8000/admin
+- **Username**: `admin`
+- **Password**: Смотри в `.env` файле (по умолчанию `admin123`)
+
+**Готово!** 🎉
+
+## 📚 Документация
+
+- [**DOCKER-QUICKSTART.md**](DOCKER-QUICKSTART.md) - Полная инструкция по Docker
+- [**CARGO-LOGISTICS-SETUP.md**](CARGO-LOGISTICS-SETUP.md) - Техническая документация API
+
+## 🌐 Доступные URL
+
+После запуска:
+
+| Сервис | URL | Описание |
+|--------|-----|----------|
+| Admin Panel | http://localhost:8000/admin | Веб-интерфейс управления |
+| API Docs | http://localhost:8000/docs | Swagger документация |
+| API | http://localhost:8000/api/v1 | REST API endpoints |
+
+## 📊 Структура данных
+
+### База данных (PostgreSQL + UUID)
+
+```
+Suppliers (поставщики)
+  ↓
+Rates (ставки: buy_rate / sell_rate)
+  ↓
+Shipments (поставки) ← финансовые расчёты
+  ↓
+Expenses (расходы)
+  ↓
+Clients (клиенты)
+```
+
+### Финансовые формулы
+
+```
+Revenue = quantity × sell_rate
+Cost of Goods = quantity × buy_rate
+Total Expenses = SUM(expenses)
+Profit = revenue - cost - expenses
+Margin % = (profit / revenue) × 100
+```
+
+## 🔌 Основные API endpoints
+
 ```bash
-docker-compose up --build
+# Suppliers
+GET    /api/v1/suppliers
+POST   /api/v1/suppliers
+PATCH  /api/v1/suppliers/{id}
+DELETE /api/v1/suppliers/{id}
+
+# Clients
+GET    /api/v1/clients
+POST   /api/v1/clients
+...
+
+# Rates
+GET    /api/v1/rates
+POST   /api/v1/rates
+...
+
+# Shipments (с финансами!)
+GET    /api/v1/shipments
+POST   /api/v1/shipments
+GET    /api/v1/shipments/{id}/finance  # 💰 С расчётом финансов
+PATCH  /api/v1/shipments/{id}
+DELETE /api/v1/shipments/{id}
+
+# Expenses
+GET    /api/v1/expenses?shipment_id={id}
+POST   /api/v1/expenses
+...
+
+# Reports
+GET    /api/v1/reports/summary?date_from=...&date_to=...
+GET    /api/v1/reports/by-client/{client_id}
+GET    /api/v1/reports/by-supplier/{supplier_id}
 ```
 
-Сервисы будут доступны по адресам:
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8000
-- **API Docs**: http://localhost:8000/docs
-- **Admin Panel**: http://localhost:8000/admin (пока в разработке)
+## 💡 Примеры использования
 
-### Первый запуск
+### Создать поставку
 
-При первом запуске:
-1. База данных PostgreSQL автоматически создаст необходимые таблицы
-2. Frontend будет доступен сразу после сборки
-
-## Структура проекта
-
-```
-cargo/
-├── backend/                 # FastAPI приложение
-│   ├── app/
-│   │   ├── api/            # API endpoints
-│   │   ├── core/           # Конфигурация и база данных
-│   │   ├── models/         # SQLAlchemy модели
-│   │   ├── schemas/        # Pydantic схемы
-│   │   ├── admin/          # Админ панель
-│   │   └── main.py         # Точка входа
-│   ├── Dockerfile
-│   └── requirements.txt
-│
-├── frontend/               # Next.js приложение
-│   ├── components/         # React компоненты
-│   ├── pages/             # Страницы Next.js
-│   ├── styles/            # Глобальные стили
-│   ├── Dockerfile
-│   ├── package.json
-│   └── tsconfig.json
-│
-└── docker-compose.yml     # Оркестрация Docker
+```bash
+curl -X POST http://localhost:8000/api/v1/shipments \
+  -H "Content-Type: application/json" \
+  -d '{
+    "shipment_code": "CN-RU-004",
+    "supplier_id": "...",
+    "client_id": "...",
+    "rate_id": "...",
+    "cargo_type": "perfumes",
+    "quantity": 1000,
+    "status": "planned"
+  }'
 ```
 
-## API Endpoints
+### Получить финансы по поставке
 
-### Orders (Заявки)
-- `POST /api/v1/orders/` - Создать заявку
-- `GET /api/v1/orders/` - Получить список заявок
-- `GET /api/v1/orders/{id}` - Получить заявку по ID
-- `PATCH /api/v1/orders/{id}` - Обновить заявку
-- `DELETE /api/v1/orders/{id}` - Удалить заявку
+```bash
+curl http://localhost:8000/api/v1/shipments/{id}/finance
+```
 
-### Документация
-- `GET /docs` - Swagger UI
-- `GET /redoc` - ReDoc
-- `GET /openapi.json` - OpenAPI схема
-
-## Модель данных
-
-### Order (Заявка)
+Ответ:
 ```json
 {
-  "client_name": "Иван Иванов",
-  "client_phone": "+79991234567",
-  "client_email": "email@example.com",
-  "company_name": "ООО Компания",
-  "route": "uae_to_rf",
-  "cargo_type": "Электроника",
-  "cargo_weight": 100.5,
-  "cargo_volume": 1.5,
-  "description": "Описание груза",
-  "pickup_address": "Дубай, улица...",
-  "delivery_address": "Москва, улица...",
-  "status": "new",
-  "estimated_price": 50000.00,
-  "notes": "Примечания менеджера"
+  "shipment_code": "CN-RU-001",
+  "quantity": 500,
+  "revenue": 1050.00,
+  "cost_of_goods": 890.00,
+  "total_expenses": 230.00,
+  "profit": -70.00,
+  "margin_percent": -6.67
 }
 ```
 
-### Маршруты (Routes)
-- `uae_to_rf` - ОАЭ → Россия
-- `turkey_to_rf` - Турция → Россия
-
-### Статусы (Status)
-- `new` - Новая заявка
-- `in_progress` - В работе
-- `completed` - Завершена
-- `cancelled` - Отменена
-
-## Разработка
-
-### Backend разработка
+### Получить сводный отчёт
 
 ```bash
-# Перейти в директорию backend
-cd backend
-
-# Создать виртуальное окружение
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# или
-venv\Scripts\activate  # Windows
-
-# Установить зависимости
-pip install -r requirements.txt
-
-# Запустить сервер
-uvicorn app.main:app --reload
+curl "http://localhost:8000/api/v1/reports/summary?date_from=2024-01-01&date_to=2024-12-31"
 ```
 
-### Frontend разработка
+## 🛠 Технологии
+
+- **Backend**: FastAPI, SQLAlchemy 2.0, Alembic
+- **Database**: PostgreSQL 15 (UUID)
+- **Admin**: SQLAdmin
+- **Container**: Docker, Docker Compose
+- **Python**: 3.11
+
+## 📁 Структура проекта
+
+```
+cargo/
+├── docker-compose.yml              # Docker конфигурация
+├── DOCKER-QUICKSTART.md           # Инструкция Docker
+├── CARGO-LOGISTICS-SETUP.md       # Техническая документация
+├── README.md                      # Этот файл
+└── backend/
+    ├── Dockerfile                 # Образ backend
+    ├── entrypoint.sh             # Автозапуск миграций
+    ├── requirements.txt          # Python зависимости
+    ├── alembic/                  # Миграции БД
+    ├── app/
+    │   ├── main.py              # FastAPI приложение
+    │   ├── models/              # SQLAlchemy модели
+    │   ├── schemas/             # Pydantic схемы
+    │   ├── api/                 # API endpoints
+    │   ├── admin/               # SQLAdmin views
+    │   ├── services/            # Бизнес-логика
+    │   └── core/                # Config, Database
+    └── create_initial_data.py   # Тестовые данные
+```
+
+## 🔧 Команды
 
 ```bash
-# Перейти в директорию frontend
-cd frontend
+# Запуск
+docker-compose up -d
 
-# Установить зависимости
-npm install
+# Остановка
+docker-compose down
 
-# Запустить dev сервер
-npm run dev
+# Логи
+docker-compose logs -f backend
 
-# Собрать для продакшена
-npm run build
-npm start
+# Применить миграции
+docker-compose exec backend alembic upgrade head
+
+# Создать тестовые данные
+docker-compose exec backend python create_initial_data.py
+
+# Подключиться к БД
+docker-compose exec postgres psql -U cargo_user -d cargo_db
 ```
 
-## Админ панель
+## 🔐 Безопасность
 
-Админ панель находится в разработке. Планируется использование FastAPI Admin для управления:
-- Заявками
-- Клиентами
-- Статусами доставки
-- Ценообразованием
+⚠️ **ВАЖНО**: Перед деплоем на production:
 
-## Будущие улучшения
+1. **Создайте `.env` файл** (не коммитьте в git!):
+   ```bash
+   cp .env.example .env
+   ```
 
-- [ ] Полноценная админ панель
-- [ ] Аутентификация администраторов
-- [ ] Email уведомления
-- [ ] SMS уведомления
-- [ ] Интеграция с CRM
-- [ ] Калькулятор стоимости
-- [ ] Отслеживание грузов
-- [ ] Личный кабинет клиента
-- [ ] Мультиязычность
-- [ ] Новые маршруты (Китай, Европа)
+2. **Измените пароли в `.env`**:
+   ```env
+   ADMIN_PASSWORD=ваш-сложный-пароль
+   SECRET_KEY=ваш-секретный-ключ-32-символа
+   POSTGRES_PASSWORD=пароль-для-бд
+   ```
 
-## Production Deploy
+3. **Сгенерируйте безопасный SECRET_KEY**:
+   ```bash
+   python -c "import secrets; print(secrets.token_urlsafe(32))"
+   ```
 
-Для развертывания в продакшене:
+4. **Никогда не коммитьте `.env` в git!** (уже в `.gitignore`)
 
-1. Измените переменные окружения в `.env`
-2. Настройте SSL сертификаты
-3. Используйте Nginx для reverse proxy
-4. Настройте резервное копирование БД
-5. Настройте мониторинг и логирование
+## 📝 Разработка
 
-## Лицензия
+### Создание новой миграции
 
-Proprietary - Все права защищены
+```bash
+docker-compose exec backend alembic revision --autogenerate -m "описание"
+docker-compose exec backend alembic upgrade head
+```
 
-## Контакты
+### Откат миграции
 
-Email: info@cargo-express.com
-Телефон: +7 (999) 123-45-67
+```bash
+docker-compose exec backend alembic downgrade -1
+```
+
+## 🐛 Troubleshooting
+
+### Контейнер не запускается
+
+```bash
+docker-compose logs backend
+docker-compose down
+docker-compose up --build
+```
+
+### Нужно очистить БД
+
+```bash
+docker-compose down -v
+docker-compose up --build -d
+docker-compose exec backend python create_initial_data.py
+```
+
+Подробнее см. [DOCKER-QUICKSTART.md](DOCKER-QUICKSTART.md)
+
+## 📄 Лицензия
+
+MIT
+
+## 👨‍💻 Автор
+
+Cargo Logistics Team
