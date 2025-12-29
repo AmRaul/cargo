@@ -17,6 +17,7 @@ from app.api.rates import router as rates_router
 from app.api.shipments import router as shipments_router
 from app.api.expenses import router as expenses_router
 from app.api.reports import router as reports_router
+from app.api.dashboard import router as dashboard_router
 
 # Import SQLAdmin views
 from app.admin.views import (
@@ -24,7 +25,8 @@ from app.admin.views import (
     ClientAdmin,
     RateAdmin,
     ShipmentAdmin,
-    ExpenseAdmin
+    ExpenseAdmin,
+    DashboardView
 )
 
 # Note: Tables are now created via Alembic migrations
@@ -83,6 +85,7 @@ admin = Admin(
 )
 
 # Register models with SQLAdmin
+admin.add_view(DashboardView)
 admin.add_view(SupplierAdmin)
 admin.add_view(ClientAdmin)
 admin.add_view(RateAdmin)
@@ -98,6 +101,7 @@ app.include_router(rates_router, prefix=settings.API_V1_STR)
 app.include_router(shipments_router, prefix=settings.API_V1_STR)
 app.include_router(expenses_router, prefix=settings.API_V1_STR)
 app.include_router(reports_router, prefix=settings.API_V1_STR)
+app.include_router(dashboard_router, prefix=settings.API_V1_STR)
 
 
 @app.get("/")

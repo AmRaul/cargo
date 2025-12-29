@@ -21,6 +21,9 @@ class Client(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
+    def __repr__(self):
+        return f"{self.client_number} - {self.name}"
+
 
 def generate_next_client_number(session: Session) -> str:
     """Generate next client number in format CL-0001"""

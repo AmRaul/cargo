@@ -34,13 +34,16 @@ class Shipment(Base):
     arrival_date = Column(Date, nullable=True)
 
     # Status
-    status = Column(Enum(ShipmentStatusEnum), default=ShipmentStatusEnum.PLANNED)
+    status = Column(Enum(ShipmentStatusEnum, values_callable=lambda x: [e.value for e in x]), default=ShipmentStatusEnum.PLANNED)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     # Relationships
-    supplier = relationship("Supplier", backref="shipments")
-    client = relationship("Client", backref="shipments")
-    rate = relationship("Rate", backref="shipments")
+    supplier = relationship("Supplier", backref="shipments", lazy="joined")
+    client = relationship("Client", backref="shipments", lazy="joined")
+    rate = relationship("Rate", backref="shipments", lazy="joined")
     expenses = relationship("Expense", back_populates="shipment", cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"{self.shipment_code} - {self.cargo_type}"

@@ -32,5 +32,10 @@ class Rate(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     # Relationships
-    supplier = relationship("Supplier", backref="rates")
-    client = relationship("Client", backref="rates")
+    supplier = relationship("Supplier", backref="rates", lazy="joined")
+    client = relationship("Client", backref="rates", lazy="joined")
+
+    def __repr__(self):
+        supplier_name = self.supplier.name if self.supplier else "N/A"
+        client_info = f" → {self.client.client_number}" if self.client else ""
+        return f"{self.cargo_type} от {supplier_name}{client_info}"

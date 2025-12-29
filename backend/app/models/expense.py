@@ -24,7 +24,7 @@ class Expense(Base):
     shipment_id = Column(UUID(as_uuid=True), ForeignKey("shipments.id", ondelete="CASCADE"), nullable=False)
 
     # Expense details
-    expense_type = Column(Enum(ExpenseTypeEnum), nullable=False)
+    expense_type = Column(Enum(ExpenseTypeEnum, values_callable=lambda x: [e.value for e in x]), nullable=False)
     amount = Column(Float, nullable=False)
     currency = Column(String(10), nullable=False, default="USD")
     comment = Column(Text, nullable=True)
@@ -34,3 +34,13 @@ class Expense(Base):
 
     # Relationship
     shipment = relationship("Shipment", back_populates="expenses")
+
+    def __repr__(self):
+        expense_types_ru = {
+            "customs": "Таможня",
+            "delivery": "Доставка",
+            "agent_fee": "Агентский сбор",
+            "warehouse": "Склад"
+        }
+        type_name = expense_types_ru.get(self.expense_type.value, self.expense_type.value)
+        return f"{type_name} - ${self.amount}"
